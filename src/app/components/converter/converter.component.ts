@@ -318,11 +318,8 @@ export class ConverterComponent implements OnInit {
     }
 
     getRates(): void {
-        if (
-            this.currencyExchangeService.exchangeRates === undefined ||
-            this.currencyExchangeService.exchangeRates.length <= 0
-        ) {
-            this.apiRequestService.getExchangeRates(Currency.USD).subscribe(
+        if (!this.currencyExchangeService.exchangeRates) {
+            this.apiRequestService.getExchangeRates().subscribe(
                 (exchangeRate: ExchangeRatesResponse): void => {
                     this.currencyExchangeService.exchangeRates = this.mapResponseData(exchangeRate);
 
