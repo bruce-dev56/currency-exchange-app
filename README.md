@@ -7,7 +7,7 @@
 
 # Currency Exchange Project
 
-Currency Exchange Project authored by Osman Fikret Ceylan.
+Currency Exchange Project designed and developed by Osman Fikret Ceylan.
 
 ## Usage
 
