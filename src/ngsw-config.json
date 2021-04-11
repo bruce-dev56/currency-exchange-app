@@ -35,7 +35,7 @@
         {
             "name": "rates",
             "urls": [
-                "https://api.exchangeratesapi.io/latest?base=USD"
+                "https://api.exchangerate.host/latest?base=USD"
             ],
             "cacheConfig": {
                 "maxSize": 10,

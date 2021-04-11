@@ -5,7 +5,7 @@
 export const environment = {
     production: false,
     baseAPIUrl: 'https://currency-exchange-assessment.firebaseapp.com',
-    exchangeRatesAPIUrl: 'https://api.exchangeratesapi.io',
+    exchangeRatesAPIUrl: 'https://api.exchangerate.host',
 };
 
 /*
