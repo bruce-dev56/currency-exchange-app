@@ -110,13 +110,13 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 *   Form data is sent asynchronously by `HTTP POST request` with `RxJS` observables. The `HTTP POST request` posts the form data to URL `./login`. I also created an interface for a hypothetical response from the server for this request. A refactor must be done when a backend is ready to make it work in a live environment.
 
-*   Login method requests handled with `MockBackendServerInterceptor`. This interceptor checks the user credentials - username and password then if there is a match it returns `HTTP 200 OK response` with a `token`. This will get the user in the app with an authentication. This `MockBackendServerInterceptor` is hypothetical.
+*   Login method requests handled with `MockBackendServerInterceptor`. This interceptor checks the user credentials - username and password then if there is a match it returns `HTTP 200 OK response` with a `token`. This will get the user in the app with an authentication. This `MockBackendServerInterceptor` is completely hypothetical and ready for the future real-time user authentication data implementation.
 
 *   An authentication service - `AuthGuardService` created to protect routes against unauthorized users. If a `token` exist in the `localStorage`, the user can use the app and reach to the protected routes.
 
 *   Used `localStorage` to store user's currency exchanges with a key:value pair namely `exchangeRates` and an array of exchanged currency information objects. Also, localStorage used to store `token`.
 
-*   Whenever a user enters to the `Converter` page, an asynchronous `HTTP GET request` runs for `https://api.exchangeratesapi.io/latest?base=USD` API.
+*   Whenever a user enters to the `Converter` page, an asynchronous `HTTP GET request` runs for `https://api.exchangerate.host/latest?base=USD` API.
 
 *   User can convert between selected currencies with the defined amount.
 
