@@ -319,7 +319,7 @@ export class ConverterComponent implements OnInit {
 
     getRates(): void {
         if (!this.currencyExchangeService.exchangeRates) {
-            this.apiRequestService.getExchangeRates().subscribe(
+            this.apiRequestService.getExchangeRates(Currency.USD).subscribe(
                 (exchangeRate: ExchangeRatesResponse): void => {
                     this.currencyExchangeService.exchangeRates = this.mapResponseData(exchangeRate);
 
