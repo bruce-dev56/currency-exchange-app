@@ -18,21 +18,23 @@ export interface PeriodicHistoryElement {
 
 @Injectable()
 export class CurrencyExchangeService implements OnInit {
-    public converterForm: FormGroup = new FormGroup({
+    converterForm: FormGroup = new FormGroup({
         amountControl: new FormControl('', [Validators.required]),
         fromControl: new FormControl('', [Validators.required, Validators.minLength(2)]),
         toControl: new FormControl('', [Validators.required, Validators.minLength(2)]),
     });
 
-    public exchangeRates: MappedCurrencyRateObject[];
-    public periodicHistoryExchangeRates: PeriodicHistoryElement[] =
+    exchangeRates: MappedCurrencyRateObject[];
+    periodicHistoryExchangeRates: PeriodicHistoryElement[] =
         <PeriodicHistoryElement[]>StorageService.getObject('exchangeRates') || [];
 
-    public fromCurrencies: string[] = [];
-    public toCurrencies: string[] = [];
+    fromCurrencies: string[] = [];
+    toCurrencies: string[] = [];
 
-    public currentDate: string;
-    public currentTime: string;
+    currentDate: string;
+    currentTime: string;
+    isValid = false;
+    isServiceReferral = false;
 
     static toTwoDigits(givenNumber: number) {
         return givenNumber > 9 ? `${givenNumber}` : `0${givenNumber}`;
@@ -68,5 +70,9 @@ export class CurrencyExchangeService implements OnInit {
             .join(separator);
 
         return this.currentTime;
+    }
+
+    toggleServiceReferral() {
+        return (this.isServiceReferral = !this.isServiceReferral);
     }
 }

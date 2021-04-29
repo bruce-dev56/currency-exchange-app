@@ -4,11 +4,15 @@ import { MatOptionSelectionChange } from '@angular/material/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Observable } from 'rxjs';
 
-import { map, startWith } from 'rxjs/operators';
+import { distinctUntilChanged, map, startWith, take } from 'rxjs/operators';
 import { ExchangeRatesApiRequestService } from '../../shared/service/exchange-rates-api-request.service';
 import { AlertService } from '../../core/alert/alert.service';
 import { CurrencyExchangeService, PeriodicHistoryElement } from '../../shared/service/currency-exchange.service';
-import { ExchangeRatesResponse, MappedCurrencyRateObject } from '../../shared/interface/exchange-rates.model';
+import {
+    ExchangeRatesResponse,
+    MappedCurrencyRateObject,
+    Statistics,
+} from '../../shared/interface/exchange-rates.model';
 
 import { StorageService } from '../../shared/service/storage.service';
 
@@ -23,11 +27,6 @@ import {
 import getSymbolFromCurrency from 'currency-symbol-map';
 import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
 
-export interface Statistics {
-    name: string;
-    summary: number;
-}
-
 @Component({
     selector: 'app-converter',
     templateUrl: './converter.component.html',
@@ -35,29 +34,29 @@ export interface Statistics {
     encapsulation: ViewEncapsulation.None,
 })
 export class ConverterComponent implements OnInit {
-    public periodicHistoryData: PeriodicHistoryElement[] = this.currencyExchangeService.periodicHistoryExchangeRates;
+    periodicHistoryData: PeriodicHistoryElement[] = this.currencyExchangeService.periodicHistoryExchangeRates;
 
-    public dataSource = new MatTableDataSource(this.periodicHistoryData);
-    public displayedHistoricalColumns: string[] = [TableColumnNames.Date, TableColumnNames.ExchangeRate];
+    dataSource = new MatTableDataSource(this.periodicHistoryData);
+    displayedHistoricalColumns: string[] = [TableColumnNames.Date, TableColumnNames.ExchangeRate];
 
-    public statisticalData: Statistics[];
-    public statisticalDataSource = new MatTableDataSource(this.statisticalData);
-    public displayedStatisticalColumns: string[] = [TableColumnNames.Name, TableColumnNames.Summary];
+    statisticalData: Statistics[];
+    statisticalDataSource = new MatTableDataSource(this.statisticalData);
+    displayedStatisticalColumns: string[] = [TableColumnNames.Name, TableColumnNames.Summary];
 
-    public selectedDuration =
-        StorageService.getItem(LocalStorageItems.SelectedTimeInterval) || TimeIntervalTypes.AllTime;
+    selectedDuration = StorageService.getItem(LocalStorageItems.SelectedTimeInterval) || TimeIntervalTypes.AllTime;
 
-    public converterForm: FormGroup;
-    public filteredFromValues: Observable<string[]>;
-    public filteredToValues: Observable<string[]>;
+    converterForm: FormGroup;
+    filteredFromValues: Observable<string[]>;
+    filteredToValues: Observable<string[]>;
 
-    public id: number = new Date().getTime();
-    public amount: number;
-    public fromRate: number;
-    public fromCurrency: string;
-    public toRate: number;
-    public toCurrency: string;
-    public result: string;
+    id: number = new Date().getTime();
+    amount: number;
+    fromRate: number;
+    fromCurrency: string;
+    toRate: number;
+    toCurrency: string;
+    result: string;
+    mappedCurrencies: string[] = [];
 
     private readonly FIRST_ITEM = 0;
     private readonly SECOND_ITEM = 1;
@@ -92,7 +91,31 @@ export class ConverterComponent implements OnInit {
 
         this.statisticalDataSource = new MatTableDataSource(this.statisticalData);
 
-        this.selectedTimeInterval();
+        this.selectedTimeRange();
+
+        this.converterForm
+            .get('amountControl')
+            .valueChanges.pipe(distinctUntilChanged())
+            .subscribe((amountValue: number) => {
+                this.securePositiveInteger('amountControl', amountValue);
+            });
+
+        if (this.currencyExchangeService.isServiceReferral) {
+            this.currencyExchangeService.toggleServiceReferral();
+            this.checkValidityOnLoad(this.converterForm.controls['amountControl'].value, 'amountControl');
+            this.checkValidityOnLoad(this.converterForm.controls['toControl'].value, 'toControl');
+            this.checkValidityOnLoad(this.converterForm.controls['fromControl'].value, 'fromControl');
+
+            this.setFormValidity();
+        }
+    }
+
+    securePositiveInteger(formControlName: string, amountValue: number) {
+        if (amountValue) {
+            if (amountValue < 0) {
+                this.converterForm.controls[formControlName].setValue(0);
+            }
+        }
     }
 
     selectCurrencyByEnter(event: MatOptionSelectionChange, inputName: string): void {
@@ -101,16 +124,47 @@ export class ConverterComponent implements OnInit {
         }
     }
 
+    selectCurrencyByClick(selectedOption: string, formControlName: string) {
+        this.converterForm.controls[formControlName].setValue(selectedOption);
+        this.setFormValidity();
+    }
+
     selectWrittenCurrency(event: any, inputName: string): void {
         const writtenCurrency = event.target.value.toUpperCase();
+        this.mappedCurrencies = this.mapItemCurrencies();
 
-        if (writtenCurrency.length >= 2 && writtenCurrency.length <= 3) {
-            const currencyList = this.mapItemCurrencies();
+        const matchedCurrency =
+            this.mappedCurrencies.filter((currency) => currency.includes(writtenCurrency))[this.FIRST_ITEM] ||
+            ''.toString();
 
-            const matchedCurrency = currencyList
-                .filter((currency) => currency.includes(writtenCurrency))
-                [this.FIRST_ITEM].toString();
+        if (writtenCurrency.length === 3 && !!matchedCurrency) {
+            this.converterForm.controls[inputName].setValue(matchedCurrency);
+        }
 
+        this.setFormValidity();
+    }
+
+    setFormValidity() {
+        const amountControlValue = this.converterForm.controls['amountControl'].value;
+
+        const isAmount = !!amountControlValue;
+
+        this.currencyExchangeService.isValid =
+            isAmount && this.checkForMatchedInputValue('fromControl') && this.checkForMatchedInputValue('toControl');
+    }
+
+    checkForMatchedInputValue(formControlName: string): boolean {
+        const controlValue = this.converterForm.controls[formControlName].value;
+        this.mappedCurrencies = this.mapItemCurrencies();
+
+        return this.mappedCurrencies.filter((currency) => currency === controlValue.toUpperCase()).length !== 0;
+    }
+
+    checkValidityOnLoad(value: string, inputName: string) {
+        const matchedCurrency =
+            this.mappedCurrencies.filter((currency) => currency.includes(value))[this.FIRST_ITEM] || ''.toString();
+
+        if (value.length === 3 && !!matchedCurrency) {
             this.converterForm.controls[inputName].setValue(matchedCurrency);
         }
     }
@@ -138,7 +192,7 @@ export class ConverterComponent implements OnInit {
 
         this.statisticalDataSource = new MatTableDataSource(this.statisticalData);
 
-        this.selectedTimeInterval();
+        this.selectedTimeRange();
     }
 
     changeExchangeInputValues(): void {
@@ -267,7 +321,7 @@ export class ConverterComponent implements OnInit {
         ];
     }
 
-    selectedTimeInterval(): void {
+    selectedTimeRange(): void {
         const date = this.currencyExchangeService.getCurrentDate('/');
 
         switch (this.selectedDuration) {

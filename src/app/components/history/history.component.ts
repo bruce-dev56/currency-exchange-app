@@ -22,9 +22,9 @@ export interface HistoryElement {
     styleUrls: ['./history.component.scss'],
 })
 export class HistoryComponent implements OnInit {
-    public periodicHistoryData: HistoryElement[];
-    public displayedHistoricalColumns: string[] = ['date', 'event', 'actions'];
-    public periodicHistoryDataSource: MatTableDataSource<HistoryElement>;
+    periodicHistoryData: HistoryElement[];
+    displayedHistoricalColumns: string[] = ['date', 'event', 'actions'];
+    periodicHistoryDataSource: MatTableDataSource<HistoryElement>;
 
     constructor(private currencyExchangeService: CurrencyExchangeService, private router: Router) {}
 
@@ -50,7 +50,9 @@ export class HistoryComponent implements OnInit {
     }
 
     setCurrencyJob(amount: string, fromCurrency: string, toCurrency: string) {
-        this.router.navigate(['converter']);
+        this.router.navigate(['converter']).then();
+
+        this.currencyExchangeService.toggleServiceReferral();
 
         this.currencyExchangeService.converterForm = new FormGroup({
             amountControl: new FormControl(amount, [Validators.required]),
