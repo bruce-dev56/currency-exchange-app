@@ -11,3 +11,8 @@ export interface MappedCurrencyRateObject {
     currency: string;
     rate: number;
 }
+
+export interface Statistics {
+    name: string;
+    summary: number;
+}
