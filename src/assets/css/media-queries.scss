@@ -209,3 +209,41 @@
 		}
 	}
 }
+
+
+@media only screen and (max-width: 900px) and (min-width: 750px) {
+	.header-content {
+		.navbar {
+			max-width: 725px !important;
+		}
+	}
+
+	main {
+		padding: 0 !important;
+
+		app-converter,
+		app-history {
+			margin: 0 10% !important;
+
+			.page-title {
+				margin-bottom: 20px !important;
+			}
+
+			.title--font-size {
+				font-size: 25px !important;
+			}
+
+			.history-area-table tr .mat-column-actions button {
+				display: inherit !important;
+
+				&:last-child {
+					margin-left: 0 !important;
+				}
+			}
+		}
+
+		mat-form-field {
+			max-width: 20% !important;
+		}
+	}
+}
