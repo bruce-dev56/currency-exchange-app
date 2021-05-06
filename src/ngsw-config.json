@@ -35,12 +35,12 @@
         {
             "name": "rates",
             "urls": [
-                "https://api.exchangerate.host/latest?base=USD"
+                "https://api.exchangerate.host/"
             ],
             "cacheConfig": {
                 "maxSize": 10,
-                "maxAge": "1d",
-                "timeout": "10s",
+                "maxAge": "12h",
+                "timeout": "20s",
                 "strategy": "freshness"
             }
         }
