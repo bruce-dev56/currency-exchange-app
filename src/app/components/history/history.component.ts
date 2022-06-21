@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 
 import { CurrencyExchangeService, PeriodicHistoryElement } from '../../shared/service/currency-exchange.service';
@@ -54,10 +54,10 @@ export class HistoryComponent implements OnInit {
 
         this.currencyExchangeService.toggleServiceReferral();
 
-        this.currencyExchangeService.converterForm = new FormGroup({
-            amountControl: new FormControl(amount, [Validators.required]),
-            fromControl: new FormControl(fromCurrency, [Validators.required]),
-            toControl: new FormControl(toCurrency, [Validators.required]),
+        this.currencyExchangeService.converterForm = new UntypedFormGroup({
+            amountControl: new UntypedFormControl(amount, [Validators.required]),
+            fromControl: new UntypedFormControl(fromCurrency, [Validators.required]),
+            toControl: new UntypedFormControl(toCurrency, [Validators.required]),
         });
     }
 
