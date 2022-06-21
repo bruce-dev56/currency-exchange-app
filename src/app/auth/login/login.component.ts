@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { AuthService } from '../auth.service';
@@ -11,7 +11,7 @@ import { AlertService } from '../../core/alert/alert.service';
     styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-    public loginForm: FormGroup;
+    public loginForm: UntypedFormGroup;
 
     public loading: boolean = false;
     public returnUrl: string;
@@ -29,9 +29,9 @@ export class LoginComponent implements OnInit {
     ngOnInit() {
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/converter';
 
-        this.loginForm = new FormGroup({
-            username: new FormControl('user1', [Validators.required]),
-            password: new FormControl('pass1', [Validators.required]),
+        this.loginForm = new UntypedFormGroup({
+            username: new UntypedFormControl('user1', [Validators.required]),
+            password: new UntypedFormControl('pass1', [Validators.required]),
         });
     }
 
