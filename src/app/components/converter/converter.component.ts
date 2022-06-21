@@ -40,6 +40,7 @@ export class ConverterComponent implements OnInit {
     displayedHistoricalColumns: string[] = [TableColumnNames.Date, TableColumnNames.ExchangeRate];
 
     statisticalData: Statistics[];
+    // @ts-ignore
     statisticalDataSource = new MatTableDataSource(this.statisticalData);
     displayedStatisticalColumns: string[] = [TableColumnNames.Name, TableColumnNames.Summary];
 
