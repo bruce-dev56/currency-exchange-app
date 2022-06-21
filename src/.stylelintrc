@@ -8,11 +8,12 @@
                     "mixin",
 					"extends",
 					"ignores",
-					"include"
+					"include",
+                    "use"
 				]
 			}
 		],
-		"indentation": "space",
+		"indentation": null,
 		"number-leading-zero": null,
 		"unit-whitelist": [
 			"em",
