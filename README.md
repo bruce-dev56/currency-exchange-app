@@ -2,8 +2,6 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 [![Open Source Love svg2](https://badges.frapsoft.com/os/v2/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
 ![PWA Shields](https://www.pwa-shields.com/1.0.0/series/classic/white/gray.svg)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/0daf17f0d00b492e980b79cb9f1b2980)](https://www.codacy.com/app/ofcyln/currency-exchange?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ofcyln/currency-exchange&amp;utm_campaign=Badge_Grade)
-[![Maintainability](https://api.codeclimate.com/v1/badges/e0d6ef4966fdaffb362d/maintainability)](https://codeclimate.com/github/ofcyln/currency-exchange/maintainability)
 
 # Currency Exchange Project
 
@@ -62,7 +60,7 @@ The build artifacts will be stored in the `dist/` directory.
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
 
 ## App's Architecture
-*   Used latest Angular CLI v10.0.5
+*   Used latest Angular CLI v14.0.2
 
 *   Used code scaffolding for effective working and clean development environment. Specialized `build`, `deploy`, `lint`, `pre-commit` scripts added to package.json.
 

@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatOptionSelectionChange } from '@angular/material/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Observable } from 'rxjs';
@@ -40,12 +40,13 @@ export class ConverterComponent implements OnInit {
     displayedHistoricalColumns: string[] = [TableColumnNames.Date, TableColumnNames.ExchangeRate];
 
     statisticalData: Statistics[];
+    // @ts-ignore
     statisticalDataSource = new MatTableDataSource(this.statisticalData);
     displayedStatisticalColumns: string[] = [TableColumnNames.Name, TableColumnNames.Summary];
 
     selectedDuration = StorageService.getItem(LocalStorageItems.SelectedTimeInterval) || TimeIntervalTypes.AllTime;
 
-    converterForm: FormGroup;
+    converterForm: UntypedFormGroup;
     filteredFromValues: Observable<string[]>;
     filteredToValues: Observable<string[]>;
 
@@ -196,15 +197,15 @@ export class ConverterComponent implements OnInit {
     }
 
     changeExchangeInputValues(): void {
-        this.converterForm = new FormGroup({
-            amountControl: new FormControl(this.converterForm.get(FormNames.AmountControl).value, [
+        this.converterForm = new UntypedFormGroup({
+            amountControl: new UntypedFormControl(this.converterForm.get(FormNames.AmountControl).value, [
                 Validators.required,
             ]),
-            fromControl: new FormControl(this.converterForm.get(FormNames.ToControl).value, [
+            fromControl: new UntypedFormControl(this.converterForm.get(FormNames.ToControl).value, [
                 Validators.required,
                 Validators.minLength(2),
             ]),
-            toControl: new FormControl(this.converterForm.get(FormNames.FromControl).value, [
+            toControl: new UntypedFormControl(this.converterForm.get(FormNames.FromControl).value, [
                 Validators.required,
                 Validators.minLength(2),
             ]),

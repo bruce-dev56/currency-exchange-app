@@ -1,4 +1,4 @@
-import { async, inject, TestBed } from '@angular/core/testing';
+import { inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { HttpClient } from '@angular/common/http';
 import { InjectionToken } from '@angular/core';
@@ -13,16 +13,18 @@ describe('ExchangeRatesAPIRequestService', () => {
     let exchangeRatesApiRequestService: ExchangeRatesApiRequestService;
     let APP_CONFIG = new InjectionToken<string>('app.config');
 
-    beforeEach(async(() => {
-        TestBed.configureTestingModule({
-            providers: [ExchangeRatesApiRequestService, { provide: APP_CONFIG, useValue: mockConfig }],
-            imports: [HttpClientTestingModule],
-        });
+    beforeEach(
+        waitForAsync(() => {
+            TestBed.configureTestingModule({
+                providers: [ExchangeRatesApiRequestService, { provide: APP_CONFIG, useValue: mockConfig }],
+                imports: [HttpClientTestingModule],
+            });
 
-        httpClient = TestBed.get(HttpClient);
-        httpTestingController = TestBed.get(HttpTestingController);
-        exchangeRatesApiRequestService = TestBed.get(ExchangeRatesApiRequestService);
-    }));
+            httpClient = TestBed.get(HttpClient);
+            httpTestingController = TestBed.get(HttpTestingController);
+            exchangeRatesApiRequestService = TestBed.get(ExchangeRatesApiRequestService);
+        }),
+    );
 
     afterEach(inject([HttpTestingController], (httpMock: HttpTestingController) => {
         httpMock.verify();

@@ -1,5 +1,5 @@
 import { Injectable, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 
 import { MappedCurrencyRateObject } from '../interface/exchange-rates.model';
 import { StorageService } from './storage.service';
@@ -18,10 +18,10 @@ export interface PeriodicHistoryElement {
 
 @Injectable()
 export class CurrencyExchangeService implements OnInit {
-    converterForm: FormGroup = new FormGroup({
-        amountControl: new FormControl('', [Validators.required]),
-        fromControl: new FormControl('', [Validators.required, Validators.minLength(2)]),
-        toControl: new FormControl('', [Validators.required, Validators.minLength(2)]),
+    converterForm: UntypedFormGroup = new UntypedFormGroup({
+        amountControl: new UntypedFormControl('', [Validators.required]),
+        fromControl: new UntypedFormControl('', [Validators.required, Validators.minLength(2)]),
+        toControl: new UntypedFormControl('', [Validators.required, Validators.minLength(2)]),
     });
 
     exchangeRates: MappedCurrencyRateObject[];
