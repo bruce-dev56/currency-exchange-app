@@ -6055,6 +6055,17 @@
     "normalize-path" "^1.0.0"
     "strip-indent" "^2.0.0"
 
+"i18n-json-to-xlsx-converter@file:../i18n-json-to-xlsx-converter":
+  "resolved" "file:../i18n-json-to-xlsx-converter"
+  "version" "0.1.0"
+  dependencies:
+    "chalk" "^4.1.1"
+    "exceljs" "^4.2.1"
+    "flat" "^5.0.2"
+    "fs-extra" "^10.0.0"
+    "minimist" "^1.2.5"
+    "read-excel-file" "^5.2.7"
+
 "iconv-lite@^0.4.24":
   "integrity" "sha512-v3MXnZAcvnywkTUEZomIActle7RXXeedOR31wwl7VlyoXO4Qi9arvSenNQWne1TcRwhCL1HwLI21bEqdpj8/rA=="
   "resolved" "https://registry.npmjs.org/iconv-lite/-/iconv-lite-0.4.24.tgz"
