@@ -6,6 +6,7 @@ export const environment = {
     production: false,
     baseAPIUrl: 'https://currency-exchange-assessment.firebaseapp.com',
     exchangeRatesAPIUrl: 'https://api.exchangerate.host',
+    accessKey: 'fca_live_n8IlHm4ES1yxPCpFGzAey44cKcFKTwgJ1bHM6hyK',
 };
 
 /*

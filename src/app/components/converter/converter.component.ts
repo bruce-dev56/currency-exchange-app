@@ -237,11 +237,11 @@ export class ConverterComponent implements OnInit {
     }
 
     mapResponseData(responseData: ExchangeRatesResponse): MappedCurrencyRateObject[] {
-        return Object.keys(responseData.rates).map(
+        return Object.keys(responseData.data).map(
             (item: string): MappedCurrencyRateObject => {
                 return {
                     currency: item,
-                    rate: responseData.rates[item],
+                    rate: responseData.data[item],
                 };
             },
         );
@@ -278,8 +278,20 @@ export class ConverterComponent implements OnInit {
         return Number((summary / values.length).toFixed(5));
     }
 
+    calculateBaseExchangeRate(fromRateCalculation: number = 0, toRateCalculation: number = 0): string {
+        let baseCurrency: number;
+
+        fromRateCalculation ? (baseCurrency = fromRateCalculation) : (baseCurrency = toRateCalculation);
+
+        return baseCurrency.toString().substring(0, 8);
+    }
+
     calculateExchangeRate(): string {
-        return ((this.converterForm.get(FormNames.AmountControl).value * this.toRate) / this.fromRate).toFixed(3);
+        const calculatedRate = ((this.converterForm.get(FormNames.AmountControl).value * this.toRate) / this.fromRate)
+            .toString()
+            .substring(0, 8);
+
+        return !calculatedRate.split('.')[1] ? calculatedRate.split('.')[0] : calculatedRate;
     }
 
     incrementNumberForID(): number {
@@ -373,6 +385,7 @@ export class ConverterComponent implements OnInit {
     }
 
     getRates(): void {
+        StorageService.setItem(LocalStorageItems.SelectedTimeInterval, this.selectedDuration);
         if (!this.currencyExchangeService.exchangeRates) {
             this.apiRequestService.getExchangeRates(Currency.USD).subscribe(
                 (exchangeRate: ExchangeRatesResponse): void => {
