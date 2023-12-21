@@ -3,8 +3,7 @@ export interface StringNumberPair {
 }
 
 export interface ExchangeRatesResponse {
-    base: string;
-    rates: StringNumberPair;
+    data: StringNumberPair;
 }
 
 export interface MappedCurrencyRateObject {

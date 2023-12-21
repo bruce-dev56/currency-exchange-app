@@ -10,6 +10,8 @@ export class ExchangeRatesApiRequestService {
     constructor(public http: HttpClient) {}
 
     public getExchangeRates(baseCurrency: string): Observable<ExchangeRatesResponse> {
-        return this.http.get<ExchangeRatesResponse>(`${environment.exchangeRatesAPIUrl}/latest?base=${baseCurrency}`);
+        return this.http.get<ExchangeRatesResponse>(
+            `${environment.exchangeRatesAPIUrl}?apikey=${environment.accessKey}&base_currency=${baseCurrency}`,
+        );
     }
 }
