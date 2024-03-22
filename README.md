@@ -1,4 +1,3 @@
-[![Build Status](https://travis-ci.org/ofcyln/currency-exchange.svg?branch=master)](https://travis-ci.org/ofcyln/currency-exchange)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 [![Open Source Love svg2](https://badges.frapsoft.com/os/v2/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
 ![PWA Shields](https://www.pwa-shields.com/1.0.0/series/classic/white/gray.svg)
