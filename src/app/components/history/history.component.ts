@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
-import { MatLegacyTableDataSource as MatTableDataSource } from '@angular/material/legacy-table';
 
 import { CurrencyExchangeService, PeriodicHistoryElement } from '../../shared/service/currency-exchange.service';
 import { StorageService } from '../../shared/service/storage.service';
+import { MatTableDataSource } from '@angular/material/table';
 
 export interface HistoryElement {
     id: number;
