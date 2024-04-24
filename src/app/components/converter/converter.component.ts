@@ -34,7 +34,7 @@ import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
     encapsulation: ViewEncapsulation.None,
 })
 export class ConverterComponent implements OnInit {
-    periodicHistoryData: PeriodicHistoryElement[] = this.currencyExchangeService.periodicHistoryExchangeRates;
+    periodicHistoryData: PeriodicHistoryElement[] = [];
 
     dataSource = new MatTableDataSource(this.periodicHistoryData);
     displayedHistoricalColumns: string[] = [TableColumnNames.Date, TableColumnNames.ExchangeRate];
@@ -69,6 +69,8 @@ export class ConverterComponent implements OnInit {
         private alertService: AlertService,
         private translate: TranslateService,
     ) {
+        this.periodicHistoryData = this.currencyExchangeService.periodicHistoryExchangeRates;
+
         translate.onLangChange.subscribe((event: LangChangeEvent) => {
             // Statistics table column name translations
             this.statisticalData[this.FIRST_ITEM].name = translate.instant('main.tables.lowest');
