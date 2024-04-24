@@ -13,8 +13,6 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { ServiceWorkerModule } from '@angular/service-worker';
 
-import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ConverterComponent } from './components/converter/converter.component';
@@ -34,7 +32,6 @@ export function createTranslateLoader(http: HttpClient) {
     imports: [
         BrowserModule,
         HttpClientModule,
-        LoadingBarHttpClientModule,
         BrowserAnimationsModule,
         ReactiveFormsModule,
         CoreModule,
