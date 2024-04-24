@@ -47,7 +47,7 @@ describe('ConverterComponent', () => {
                     MatSelectModule,
                     MatTableModule,
                     MatAutocompleteModule,
-                    RouterModule.forRoot(appRoutes, { relativeLinkResolution: 'legacy' }),
+                    RouterModule.forRoot(appRoutes, {}),
                 ],
                 providers: [
                     CurrencyExchangeService,

@@ -22,7 +22,7 @@ describe('AppComponent', () => {
                     AppModule,
                     CoreModule,
                     LoadingBarHttpClientModule,
-                    RouterModule.forRoot(appRoutes, { relativeLinkResolution: 'legacy' }),
+                    RouterModule.forRoot(appRoutes, {}),
                 ],
                 providers: [
                     {
