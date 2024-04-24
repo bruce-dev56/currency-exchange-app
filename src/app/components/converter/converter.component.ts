@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatLegacyOptionSelectionChange as MatOptionSelectionChange } from '@angular/material/legacy-core';
-import { MatLegacyTableDataSource as MatTableDataSource } from '@angular/material/legacy-table';
 import { Observable } from 'rxjs';
 
 import { distinctUntilChanged, map, startWith, take } from 'rxjs/operators';
@@ -26,6 +25,7 @@ import {
 } from '../../shared/interface/enums.model';
 import getSymbolFromCurrency from 'currency-symbol-map';
 import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
     selector: 'app-converter',
