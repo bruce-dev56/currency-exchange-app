@@ -11,7 +11,6 @@ import { MatLegacyInputModule as MatInputModule } from '@angular/material/legacy
 import { MatLegacySelectModule as MatSelectModule } from '@angular/material/legacy-select';
 import { MatLegacyTableModule as MatTableModule } from '@angular/material/legacy-table';
 import { HttpClientModule } from '@angular/common/http';
-import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from '../../core/core.module';
 import { appRoutes, AppRoutingModule } from '../../app-routing.module';
@@ -35,7 +34,6 @@ describe('ConverterComponent', () => {
                 imports: [
                     BrowserModule,
                     HttpClientModule,
-                    LoadingBarHttpClientModule,
                     BrowserAnimationsModule,
                     FormsModule,
                     ReactiveFormsModule,

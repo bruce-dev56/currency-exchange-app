@@ -2,8 +2,6 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { RouterModule, Routes } from '@angular/router';
 
-import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
-
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { AppModule } from './app.module';
@@ -17,13 +15,7 @@ describe('AppComponent', () => {
     beforeEach(
         waitForAsync(() => {
             TestBed.configureTestingModule({
-                imports: [
-                    RouterTestingModule,
-                    AppModule,
-                    CoreModule,
-                    LoadingBarHttpClientModule,
-                    RouterModule.forRoot(appRoutes, {}),
-                ],
+                imports: [RouterTestingModule, AppModule, CoreModule, RouterModule.forRoot(appRoutes, {})],
                 providers: [
                     {
                         provide: APP_BASE_HREF,
