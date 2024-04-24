@@ -9,19 +9,12 @@ import { HeaderComponent } from './header/header.component';
 import { LanguageButtonsComponent } from './language-buttons/language-buttons.component';
 
 import { AlertModule } from './alert/alert.module';
-import { MockBackendServerInterceptor } from '../shared/service/interceptor/mock-backend-server.interceptor';
 import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
     declarations: [HeaderComponent, NotFoundComponent, LanguageButtonsComponent],
     imports: [CommonModule, AlertModule, AppRoutingModule, MatButtonModule, TranslateModule],
     exports: [HeaderComponent, AlertModule, AppRoutingModule, LanguageButtonsComponent],
-    providers: [
-        {
-            provide: HTTP_INTERCEPTORS,
-            useClass: MockBackendServerInterceptor,
-            multi: true,
-        },
-    ],
+    providers: [],
 })
 export class CoreModule {}
