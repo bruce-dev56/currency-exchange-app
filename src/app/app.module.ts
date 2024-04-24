@@ -19,7 +19,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ConverterComponent } from './components/converter/converter.component';
 import { HistoryComponent } from './components/history/history.component';
-import { AuthModule } from './auth/auth.module';
 import { CoreModule } from './core/core.module';
 
 import { ExchangeRatesApiRequestService } from './shared/service/exchange-rates-api-request.service';
@@ -38,7 +37,6 @@ export function createTranslateLoader(http: HttpClient) {
         LoadingBarHttpClientModule,
         BrowserAnimationsModule,
         ReactiveFormsModule,
-        AuthModule,
         CoreModule,
         AppRoutingModule,
         MatButtonModule,
@@ -54,7 +52,9 @@ export function createTranslateLoader(http: HttpClient) {
                 deps: [HttpClient],
             },
         }),
-        ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+        ServiceWorkerModule.register('ngsw-worker.js', {
+            enabled: environment.production,
+        }),
     ],
     providers: [ExchangeRatesApiRequestService, CurrencyExchangeService],
     bootstrap: [AppComponent],

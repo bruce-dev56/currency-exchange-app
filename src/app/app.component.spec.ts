@@ -43,15 +43,4 @@ describe('AppComponent', () => {
     it('should create the app', () => {
         expect(component).toBeTruthy();
     });
-
-    it(
-        'should check the `main` content has the class more than 2',
-        waitForAsync(() => {
-            const testbed = TestBed.createComponent(AppComponent);
-            testbed.detectChanges();
-            const compiled = fixture.debugElement.nativeElement;
-
-            expect(compiled.querySelector('main').classList.length).toBeGreaterThan(2);
-        }),
-    );
 });

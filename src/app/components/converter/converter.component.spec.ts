@@ -13,7 +13,6 @@ import { MatTableModule } from '@angular/material/table';
 import { HttpClientModule } from '@angular/common/http';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AuthModule } from '../../auth/auth.module';
 import { CoreModule } from '../../core/core.module';
 import { appRoutes, AppRoutingModule } from '../../app-routing.module';
 import { HistoryComponent } from '../history/history.component';
@@ -40,7 +39,6 @@ describe('ConverterComponent', () => {
                     BrowserAnimationsModule,
                     FormsModule,
                     ReactiveFormsModule,
-                    AuthModule,
                     CoreModule,
                     AppRoutingModule,
                     MatButtonModule,
